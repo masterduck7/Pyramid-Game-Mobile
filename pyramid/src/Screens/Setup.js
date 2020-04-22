@@ -22,7 +22,11 @@ export default function Setup(props) {
                     if (["1","2","3","4","5","6","7","8","9","10"].includes(data.pyramid_height) && values.players.length > 0) {
                         data.users = values;
                         navigation.navigate('Game', {setup: data})
-                    }else{
+                    }
+                    else if(data.pyramid_height === 0 || data.pyramid_height > 10 && values.players.length > 0){
+                        alert("Altura pirámide debe estar entre 1 y 10")
+                    }
+                    else{
                         alert("Favor completa todos los campos")
                     }
                 }}
