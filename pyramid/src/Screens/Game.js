@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView , View } from 'react-native';
+import { Table, TableWrapper, Row } from 'react-native-table-component';
 
 export default class Game extends Component{
   constructor(props){
@@ -105,13 +106,43 @@ export default class Game extends Component{
       card_list_game: card_list
     })
     this.setState({structure: structure_array, number_of_cards: number_of_cards})
-    console.log(structure_array)
   }
   
   render(){
+
+    const state = this.state;
+    const tableData = [];
+    const widthArr = new Array(state.pyramid_height)
+    for (let i = 0; i < state.pyramid_height; i += 1) {
+      widthArr[i] = 30
+      const rowData = [];
+      for (let j = 0; j < state.pyramid_height; j += 1) {
+        rowData.push("X");
+      }
+      tableData.push(rowData);
+    }
+
     return(
-      <View>
-        <Text>{this.state.pyramid_height}</Text>
+      <View style={styles.containerTable}>
+        <ScrollView horizontal={true}>
+          <View>
+            <ScrollView style={styles.dataWrapper}>
+              <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
+                {
+                  tableData.map((rowData, index) => (
+                    <Row
+                      key={index}
+                      data={rowData}
+                      widthArr={widthArr}
+                      style={[styles.row]}
+                      textStyle={styles.text}
+                    />
+                  ))
+                }
+              </Table>
+            </ScrollView>
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -124,4 +155,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  containerTable: { alignItems:"center", flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  header: { height: 50, backgroundColor: '#537791' },
+  text: { textAlign: 'center', fontWeight: '100' },
+  dataWrapper: { marginTop: -1 },
+  row: { height: 40, backgroundColor: '#d1625a' }
 });
