@@ -22,9 +22,10 @@ export default class Game extends Component{
 
   componentDidMount(){
     this.setUserCards();
+    this.setStructure();
   }
 
-  setUserCards = () => {
+  setUserCards(){
     if (this.state.card_list_users.length === 0){
         alert("No quedan más cartas")
     }
@@ -67,12 +68,12 @@ export default class Game extends Component{
     }
   };
 
-  setStructure(pyramid_height){
-    const height = pyramid_height;
+  setStructure(){
+    const height = this.state.pyramid_height;
     const structure_array = [];
     let type_card = false;
     let number_of_cards = 0;
-    let card_list = this.state.card_list;
+    let card_list = this.state.card_list_game;
     for (let index = height; index > 0; index--) {
         let row = []
         for (let index_row = index; index_row > 0; index_row--) {
@@ -101,9 +102,10 @@ export default class Game extends Component{
         structure_array.push(row)
     }
     this.setState({
-        card_list: card_list
+      card_list_game: card_list
     })
     this.setState({structure: structure_array, number_of_cards: number_of_cards})
+    console.log(structure_array)
   }
   
   render(){
