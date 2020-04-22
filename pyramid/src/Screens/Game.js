@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function Game(props) {
-  const { route } = props
-  const { setup } = route.params
-  const { pyramid_height, users } = setup
+export default class Game extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      pyramid_height : props.route.params.pyramid_height,
+      users: props.route.params.users
+    }
+  }
   
-  return (
-    <View style={styles.container}>
-      <Text style={{color: '#888', fontSize: 50}}>{pyramid_height}</Text>
-    </View>
-  );
+  render(){
+    return(
+      <View>
+        <Text>{this.state.pyramid_height}</Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
