@@ -22,10 +22,10 @@ export default function Instructions(props) {
                 </Steps>
             </WingBlank>
             <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-            style={{ backgroundColor: '#d1625a', padding: 10, borderRadius: 5 }}>
-            <Text style={{ fontSize: 20, color: '#fff' }}>Jugar</Text>
-        </TouchableOpacity>
+                onPress={() => navigation.navigate('Setup')}
+                style={{ backgroundColor: '#d1625a', padding: 10, borderRadius: 5 }}>
+                <Text style={{ fontSize: 20, color: '#fff' }}>Jugar</Text>
+            </TouchableOpacity>
         </View>
     );
 }

@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../Screens/Home.js'
 import Instructions from '../Screens/Instructions.js'
+import Setup from '../Screens/Setup.js';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,18 @@ function MainStackNavigator() {
             <Stack.Screen name='Instructions' component={Instructions} 
             options={{
                 title: 'Instrucciones',
+                headerStyle: {
+                    backgroundColor: '#d1625a'
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold'
+                },
+                headerTitleAlign:"center"
+            }}/>
+            <Stack.Screen name='Setup' component={Setup} 
+            options={{
+                title: 'Variables',
                 headerStyle: {
                     backgroundColor: '#d1625a'
                 },
