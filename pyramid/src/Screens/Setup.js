@@ -15,12 +15,16 @@ export default function Setup(props) {
     return (
         <View style={styles.container}>
         <ScrollView>
-            <Text style={{ textAlign:'center', color: '#888', fontSize: 40, top:-10}}>Ingresar Datos:</Text>
+            <Text style={{ textAlign:'center', color: '#888', fontSize: 40, top:-15}}>Ingresar Datos:</Text>
             <Formik
                 initialValues={{ players: [], }}
                 onSubmit={values => {
-                    data.users = values;
-                    navigation.navigate('Game', {setup: data})
+                    if (["1","2","3","4","5","6","7","8","9","10"].includes(data.pyramid_height) && values.players.length > 0) {
+                        data.users = values;
+                        navigation.navigate('Game', {setup: data})
+                    }else{
+                        alert("Favor completa todos los campos")
+                    }
                 }}
             >
             {({ handleChange, handleSubmit, values, setFieldValue }) => (
