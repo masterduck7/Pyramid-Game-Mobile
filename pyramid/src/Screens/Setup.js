@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView  } from 'react-native';
 import { InputItem } from '@ant-design/react-native';
 import { Formik } from 'formik';
 
@@ -14,22 +14,26 @@ export default function Setup(props) {
     });
     return (
         <View style={styles.container}>
-            <Text style={{color: '#888', fontSize: 50, top:-100}}>Ingrese altura:</Text>
-            <InputItem
-                placeholder="Ingrese altura"
-                onChange = {value => {
-                    data.pyramid_height = value
-                }}
-            >
-                Altura
-            </InputItem>
+        <ScrollView>
+            <Text style={{ textAlign:'center', color: '#888', fontSize: 40, top:-10}}>Ingresar Datos:</Text>
             <Formik
                 initialValues={{ players: [], }}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => {
+                    data.users = values;
+                    navigation.navigate('Game', {setup: data})
+                }}
             >
             {({ handleChange, handleSubmit, values, setFieldValue }) => (
-                <View>
-                <Text>Ingresa jugadores</Text>
+                <View style={{alignItems:'center'}}>
+                <InputItem
+                    placeholder="Ingrese altura"
+                    onChange = {value => {
+                        data.pyramid_height = value
+                    }}
+                >
+                    Altura
+                </InputItem>
+                <Text style={{color: '#888', fontSize: 20}}>Ingresar Jugadores:</Text>
                 {values.players.map(({ name }, index) => (
                     <InputItem
                         placeholder="Ingresa nombre"
@@ -38,33 +42,56 @@ export default function Setup(props) {
                         value={values.players[index].name}
                     />
                 ))}
-                <TouchableOpacity
-                    onPress={() => setFieldValue('players', [...values.players, createPlayer()])}
-                    style={{ backgroundColor: '#506280', padding: 10, alignSelf:"center", borderRadius: 5 }}>
-                    <Text style={{ fontSize: 20, color: '#fff' }}>Agregar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => setFieldValue('players', [...values.players.slice(0,-1)])}
-                    style={{ backgroundColor: '#506280', padding: 10, alignSelf:"center", borderRadius: 5 }}>
-                    <Text style={{ fontSize: 20, color: '#fff' }}>Quitar</Text>
-                </TouchableOpacity>
+                <View style={{ flexDirection:"row" }}>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity
+                            onPress={() => setFieldValue('players', [...values.players, createPlayer()])}
+                            style={styles.buttonUsers}>
+                            <Text style={{ fontSize: 20, color: '#fff' }}>+</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.buttonStyle}>
+                        <TouchableOpacity
+                            onPress={() => setFieldValue('players', [...values.players.slice(0,-1)])}
+                            style={styles.buttonUsers}>
+                            <Text style={{ fontSize: 20, color: '#fff' }}>-</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <TouchableOpacity
                     onPress={handleSubmit}
-                    style={{ backgroundColor: '#d1625a', padding: 10, alignSelf:"center", borderRadius: 5 }}>
-                    <Text style={{ fontSize: 20, color: '#fff' }}>A jugar!</Text>
+                    style={styles.buttonSubmit}>
+                    <Text style={{ fontSize: 20, color: '#fff' }}>Salud !!!</Text>
                 </TouchableOpacity>
                 </View>
             )}
             </Formik>
+        </ScrollView>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        backgroundColor: '#fff',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
+    buttonUsers:{
+        marginTop:10,
+        marginHorizontal:5,
+        backgroundColor: '#506280',
+        padding: 10,
+        alignSelf:"center",
+        borderRadius: 5
+    },
+    buttonSubmit: {
+        marginTop:10,
+        backgroundColor: '#d1625a',
+        padding: 10,
+        alignSelf:"center",
+        borderRadius: 5
+    }
   });
