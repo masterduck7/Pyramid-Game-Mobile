@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView  } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { InputItem } from '@ant-design/react-native';
 import { Formik } from 'formik';
 
@@ -8,7 +8,8 @@ export default class Setup extends Component{
       super(props)
       this.state = {
         pyramid_height : 0,
-        users: []
+        hard: false,
+        users: [],
       }
     }
 
@@ -28,7 +29,11 @@ export default class Setup extends Component{
                             this.setState({
                                 users : values
                             })
-                            this.props.navigation.navigate('Game', {pyramid_height: this.state.pyramid_height, users: this.state.users})
+                            this.props.navigation.navigate(
+                                'Game', 
+                                {pyramid_height: this.state.pyramid_height,
+                                users: this.state.users, hard: this.state.hard}
+                            )
                         }
                         else if(this.state.pyramid_height === 0 || this.state.pyramid_height > 10 && values.players.length > 0){
                             alert("Altura pirámide debe estar entre 1 y 10")
@@ -40,6 +45,14 @@ export default class Setup extends Component{
                 >
                 {({ handleChange, handleSubmit, values, setFieldValue }) => (
                     <View style={{alignItems:'center'}}>
+                    <Switch
+                        onValueChange = {value => {
+                            this.setState({
+                                hard : value
+                            })
+                        }}
+                        value = {this.state.hard}
+                    /><Text>Dificil</Text>
                     <InputItem
                         placeholder="Ingrese altura"
                         onChange = {value => {
