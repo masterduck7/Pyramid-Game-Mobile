@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
-import { Table, TableWrapper, Row } from 'react-native-table-component';
+import { Table, Row } from 'react-native-table-component';
 
 export default class Game extends Component{
   constructor(props){
@@ -199,19 +199,21 @@ export default class Game extends Component{
         const var_id = `${i}.${j}`
         widthArr[i] = 35
         rowData.push(
-        <Button
-          id = {var_id}
-          key = {var_id}
-          ref = {(id) => id}
-          disabled = {this.isDisabled(var_id)}
-          value={structure_array[i][j][0]}
-          title="X"
-          onPress={() => 
-            this.playCard(var_id,structure_array[i][j][1],structure_array[i][j][2])
-          }
-        >
+        <View style={styles.button} >
+          <Button
+            id = {var_id}
+            key = {var_id}
+            ref = {(id) => id}
+            disabled = {this.isDisabled(var_id)}
+            value={structure_array[i][j][0]}
+            title="X"
+            onPress={() => 
+              this.playCard(var_id,structure_array[i][j][1],structure_array[i][j][2])
+            }
+          >
           <Text>X</Text>
           </Button>
+        </View>
         );
       }
       tableData.push(rowData);
@@ -220,8 +222,7 @@ export default class Game extends Component{
       <View style={styles.containerTable}>
         <ScrollView horizontal={true}>
           <View>
-            <ScrollView style={styles.dataWrapper}>
-              <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9'}}>
+              <Table>
                 {
                   tableData.map((rowData, index) => (
                     <Row
@@ -234,7 +235,6 @@ export default class Game extends Component{
                   ))
                 }
               </Table>
-            </ScrollView>
           </View>
         </ScrollView>
         <TouchableOpacity
@@ -259,13 +259,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     paddingTop: 30,
-    backgroundColor: '#fff' 
+    backgroundColor: '#fff',
   },
-  header: { height: 50, backgroundColor: '#537791' },
   text: { textAlign: 'center', fontWeight: '100' },
-  dataWrapper: { marginTop: -1 },
   row: { 
     height: 40,
-    backgroundColor: '#d1625a'
+    justifyContent: 'center',
+    marginBottom: 3,
+  },
+  button: {
+    flex:1,
+    marginRight: 3
   }
 });
