@@ -19,13 +19,15 @@ export default class Game extends Component{
       "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
       structure: [],
       remaining_cards: 0,
-      disabledButtons: []
+      disabledButtons: [],
+      playedButtons: []
     }
   }
 
   componentDidMount(){
     const cards = this.setUserCards();
     this.setStructure(cards);
+    this.state.disabledButtons.push(`${0}.${0}`)
   }
 
   setUserCards(){
@@ -134,6 +136,19 @@ export default class Game extends Component{
       })
       this.setState({structure: structure_array, number_of_cards: number_of_cards})
     }
+    let card_list = []
+    for (let i = 0; i < structure_array.length; i += 1) {
+      for (let j = 0; j < structure_array[i].length; j += 1) {
+        if (i === 0 && j === 0) {
+          continue
+        }else{
+          card_list.push(`${i}.${j}`)
+        }
+      }
+    }
+    this.setState({
+      disabledButtons: card_list
+    })
   }
 
   addDrinks(name){
@@ -178,21 +193,27 @@ export default class Game extends Component{
       number_of_cards: this.state.number_of_cards - 1
     })
     // Disable card
-    const removeCard = this.state.disabledButtons.push(id)
+    const playedCard = this.state.playedButtons.push(id)
+    const removeCard = this.state.disabledButtons.shift()
   }
 
   isDisabled(id){
-    if (this.state.disabledButtons.includes(id)) {
+    if (this.state.playedButtons.includes(id) ) {
       return true
-    }else{
-      return false
+    }
+    else{
+      if (this.state.disabledButtons.includes(id)) {
+        return true
+      }else{
+        return false
+      }
     }
   }
   
   render(){
     const structure_array = this.state.structure
     const widthArr = new Array(structure_array.length)
-    const tableData = [];
+    const tableData = []
     for (let i = 0; i < structure_array.length; i += 1) {
       const rowData = [];
       for (let j = 0; j < structure_array[i].length; j += 1) {
