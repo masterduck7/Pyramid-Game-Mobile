@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView , View, Button, Text } from 'react-native';
+import { StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
 import { Table, TableWrapper, Row } from 'react-native-table-component';
 
 export default class Game extends Component{
@@ -152,11 +152,6 @@ export default class Game extends Component{
     })
     // Disable card
     const removeCard = this.state.disabledButtons.push(id)
-    // Check is game is finished
-    if (this.state.number_of_cards === 1) {
-      console.log("GAME OVER")
-      this.props.navigation.navigate('Statistics')
-    }
   }
 
   isDisabled(id){
@@ -215,6 +210,11 @@ export default class Game extends Component{
             </ScrollView>
           </View>
         </ScrollView>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Statistics')}
+          style={{ backgroundColor: '#d1625a', padding: 10, bottom: 40, borderRadius: 5 }}>
+          <Text style={{ fontSize: 20, color: '#fff' }}>¿Quien bebió más?</Text>
+        </TouchableOpacity>
       </View>
     );
   }
