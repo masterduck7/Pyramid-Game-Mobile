@@ -155,6 +155,7 @@ export default class Game extends Component{
     // Check is game is finished
     if (this.state.number_of_cards === 1) {
       console.log("GAME OVER")
+      this.props.navigation.navigate('Statistics')
     }
   }
 

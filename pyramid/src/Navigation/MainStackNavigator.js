@@ -6,6 +6,7 @@ import Home from '../Screens/Home.js'
 import Instructions from '../Screens/Instructions.js'
 import Setup from '../Screens/Setup.js';
 import Game from '../Screens/Game.js';
+import Statistics from '../Screens/Statistics.js';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +56,18 @@ function MainStackNavigator() {
             <Stack.Screen name='Game' component={Game} 
             options={{
                 title: 'Juego',
+                headerStyle: {
+                    backgroundColor: '#d1625a'
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold'
+                },
+                headerTitleAlign:"center"
+            }}/>
+            <Stack.Screen name='Statistics' component={Statistics} 
+            options={{
+                title: 'Resultados',
                 headerStyle: {
                     backgroundColor: '#d1625a'
                 },
