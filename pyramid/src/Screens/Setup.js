@@ -54,6 +54,7 @@ export default class Setup extends Component{
                         value = {this.state.hard}
                     /><Text>Dificil</Text>
                     <InputItem
+                        
                         placeholder="Ingrese altura"
                         onChange = {value => {
                             this.setState({
@@ -68,6 +69,7 @@ export default class Setup extends Component{
                         <InputItem
                             placeholder="Ingresa nombre"
                             key={index}
+                            id={index}
                             onChangeText={handleChange(`players[${index}].name`)}
                             value={values.players[index].name}
                         />
