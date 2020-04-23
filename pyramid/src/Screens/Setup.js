@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
-import { InputItem } from '@ant-design/react-native';
+import { Input } from 'react-native-elements';
 import { Formik } from 'formik';
 
 export default class Setup extends Component{
@@ -53,21 +53,19 @@ export default class Setup extends Component{
                         }}
                         value = {this.state.hard}
                     /><Text>Dificil</Text>
-                    <InputItem
-                        
-                        placeholder="Ingrese altura"
+                    <Text style={{ paddingTop:10, color: '#888', fontSize: 20}}>Ingresa Altura pirámide:</Text>
+                    <Input
+                        placeholder="Valores 1-10"
                         onChange = {value => {
                             this.setState({
-                                pyramid_height : value
+                                pyramid_height : value.nativeEvent.text
                             })
                         }}
-                    >
-                        Altura
-                    </InputItem>
-                    <Text style={{color: '#888', fontSize: 20}}>Ingresar Jugadores:</Text>
+                    />
+                    <Text style={{paddingTop:10, color: '#888', fontSize: 20}}>Ingresar Jugadores:</Text>
                     {values.players.map(({ name }, index) => (
-                        <InputItem
-                            placeholder="Ingresa nombre"
+                        <Input
+                            placeholder="Nombre"
                             key={index}
                             id={index}
                             onChangeText={handleChange(`players[${index}].name`)}
