@@ -10,12 +10,15 @@ export default class Statistics extends Component {
       }
 
     render(){
+        const items = this.state.users.map(function(item){
+            return <Text title={item.name} key={item.name}> {item.name}: {item.drinks} </Text>;
+        });
         return(
         <View style={styles.container}>
-            <Text style={{color: '#888', fontSize: 50}}>Pirámide</Text>
+            {items}
             <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Home')}
-            style={{ backgroundColor: '#d1625a', bottom: -100, padding: 10, borderRadius: 5 }}>
+            style={{ backgroundColor: '#d1625a', bottom: -50, padding: 10, borderRadius: 5 }}>
             <Text style={{ fontSize: 20, color: '#fff' }}>Terminar</Text>
             </TouchableOpacity>
             <Text style={{ bottom:-200, color: '#888'}}>By LP</Text>
