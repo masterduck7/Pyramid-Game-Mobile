@@ -211,7 +211,7 @@ export default class Game extends Component{
           </View>
         </ScrollView>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Statistics')}
+          onPress={() => this.props.navigation.navigate('Statistics', {users: this.state.users})}
           style={{ backgroundColor: '#d1625a', padding: 10, bottom: 40, borderRadius: 5 }}>
           <Text style={{ fontSize: 20, color: '#fff' }}>¿Quien bebió más?</Text>
         </TouchableOpacity>
