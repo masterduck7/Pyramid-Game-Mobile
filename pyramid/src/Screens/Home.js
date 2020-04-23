@@ -13,7 +13,7 @@ export default class Home extends Component {
           style={{ backgroundColor: '#d1625a', padding: 10, borderRadius: 5 }}>
           <Text style={{ fontSize: 20, color: '#fff' }}>A beber!</Text>
         </TouchableOpacity>
-        <Text style={{ bottom:-50, color: '#888'}}>By LP</Text>
+        <Text style={{ bottom:-50, color: '#888'}}>By LPSoftware</Text>
       </View>
     );
   }

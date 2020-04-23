@@ -27,7 +27,7 @@ export default class Statistics extends Component {
             style={{ backgroundColor: '#d1625a', alignSelf:"center", width:150, bottom: 50, padding: 10, borderRadius: 5 }}>
             <Text key="finish" style={{ alignSelf:"center", fontSize: 20, color: '#fff' }}>Terminar</Text>
             </TouchableOpacity>
-            <Text key="brand" style={{ bottom:-200, color: '#888'}}>By LP</Text>
+            <Text key="brand" style={{ bottom:-200, color: '#888'}}>By LPSoftware</Text>
         </View>
         );
     }
