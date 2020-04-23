@@ -25,7 +25,15 @@ export default class Setup extends Component{
                 <Formik
                     initialValues={{ players: [], }}
                     onSubmit={values => {
-                        if (["1","2","3","4","5","6","7","8","9","10"].includes(this.state.pyramid_height) && values.players.length > 0) {
+                        let players_empty = true
+                        values.players.forEach(player => {
+                            if (player.name === "") {
+                                players_empty = false
+                            }
+                        });
+                        if (
+                            ["1","2","3","4","5","6","7","8","9","10"].includes(this.state.pyramid_height) 
+                            && values.players.length > 0 && players_empty) {
                             this.setState({
                                 users : values
                             })
