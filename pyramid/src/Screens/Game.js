@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
-import { Table, TableWrapper, Row } from 'react-native-table-component';
+import { Table, Row } from 'react-native-table-component';
 
 export default class Game extends Component{
   constructor(props){
@@ -199,19 +199,21 @@ export default class Game extends Component{
         const var_id = `${i}.${j}`
         widthArr[i] = 35
         rowData.push(
-        <Button
-          id = {var_id}
-          key = {var_id}
-          ref = {(id) => id}
-          disabled = {this.isDisabled(var_id)}
-          value={structure_array[i][j][0]}
-          title="X"
-          onPress={() => 
-            this.playCard(var_id,structure_array[i][j][1],structure_array[i][j][2])
-          }
-        >
+        <View style={styles.button} >
+          <Button
+            id = {var_id}
+            key = {var_id}
+            ref = {(id) => id}
+            disabled = {this.isDisabled(var_id)}
+            value={structure_array[i][j][0]}
+            title="X"
+            onPress={() => 
+              this.playCard(var_id,structure_array[i][j][1],structure_array[i][j][2])
+            }
+          >
           <Text>X</Text>
           </Button>
+        </View>
         );
       }
       tableData.push(rowData);
@@ -264,5 +266,9 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     marginBottom: 3,
+  },
+  button: {
+    flex:1,
+    marginRight: 3
   }
 });
