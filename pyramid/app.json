@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Pyramid Drink",
+    "description": "Pyramid drinking game",
     "slug": "pyramid",
     "platforms": [
       "ios",
@@ -23,6 +24,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.lpsoftware.pyramide_drink"
     }
   }
 }
