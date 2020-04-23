@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Pyramid_Drink",
+    "name": "Pyramid Drink",
     "slug": "pyramid",
     "platforms": [
       "ios",
@@ -9,9 +9,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/res/mipmap-xxxhdpi/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Layout.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

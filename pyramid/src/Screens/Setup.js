@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView  } from 'react-native';
-import { InputItem } from '@ant-design/react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
+import { Input } from 'react-native-elements';
 import { Formik } from 'formik';
 
 export default class Setup extends Component{
@@ -8,7 +8,8 @@ export default class Setup extends Component{
       super(props)
       this.state = {
         pyramid_height : 0,
-        users: []
+        hard: false,
+        users: [],
       }
     }
 
@@ -28,7 +29,11 @@ export default class Setup extends Component{
                             this.setState({
                                 users : values
                             })
-                            this.props.navigation.navigate('Game', {pyramid_height: this.state.pyramid_height, users: this.state.users})
+                            this.props.navigation.navigate(
+                                'Game', 
+                                {pyramid_height: this.state.pyramid_height,
+                                users: this.state.users, hard: this.state.hard}
+                            )
                         }
                         else if(this.state.pyramid_height === 0 || this.state.pyramid_height > 10 && values.players.length > 0){
                             alert("Altura pirámide debe estar entre 1 y 10")
@@ -40,21 +45,29 @@ export default class Setup extends Component{
                 >
                 {({ handleChange, handleSubmit, values, setFieldValue }) => (
                     <View style={{alignItems:'center'}}>
-                    <InputItem
-                        placeholder="Ingrese altura"
-                        onChange = {value => {
+                    <Switch
+                        onValueChange = {value => {
                             this.setState({
-                                pyramid_height : value
+                                hard : value
                             })
                         }}
-                    >
-                        Altura
-                    </InputItem>
-                    <Text style={{color: '#888', fontSize: 20}}>Ingresar Jugadores:</Text>
+                        value = {this.state.hard}
+                    /><Text>Dificil</Text>
+                    <Text style={{ paddingTop:10, color: '#888', fontSize: 20}}>Ingresa Altura pirámide:</Text>
+                    <Input
+                        placeholder="Valores 1-10"
+                        onChange = {value => {
+                            this.setState({
+                                pyramid_height : value.nativeEvent.text
+                            })
+                        }}
+                    />
+                    <Text style={{paddingTop:10, color: '#888', fontSize: 20}}>Ingresar Jugadores:</Text>
                     {values.players.map(({ name }, index) => (
-                        <InputItem
-                            placeholder="Ingresa nombre"
+                        <Input
+                            placeholder="Nombre"
                             key={index}
+                            id={index}
                             onChangeText={handleChange(`players[${index}].name`)}
                             value={values.players[index].name}
                         />
