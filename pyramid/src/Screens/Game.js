@@ -109,14 +109,31 @@ export default class Game extends Component{
     this.setState({structure: structure_array, number_of_cards: number_of_cards})
   }
 
+  addDrinks(name){
+    user_list = this.state.users
+    new_user_list = []
+    user_list.forEach(user => {
+      newDrinks = user.drinks
+      if (user.name === name) {
+        newDrinks = newDrinks + 1
+        new_user_list.push({ "name": user.name , cards: user.cards, drinks: newDrinks })
+      }else{
+        new_user_list.push({ "name": user.name , cards: user.cards, drinks: user.drinks })
+      }
+      
+    });
+    this.setState({
+      users: new_user_list
+    })
+  }
+
   playCard(id, card, type_card){
     const drink_users = []
     this.state.users.forEach(user => {
       if (user.cards.includes(card)) {
         drink_users.push(user.name)
         if (type_card) {
-          //const drinks_user = localStorage.getItem(user.name+"_drinks")
-          //localStorage.setItem(user.name+"_drinks", parseInt(drinks_user) + 1)    
+          this.addDrinks(user.name)
         }                
       }
     });
