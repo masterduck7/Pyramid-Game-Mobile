@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView , View } from 'react-native';
+import { StyleSheet, ScrollView , View, Button, Text } from 'react-native';
 import { Table, TableWrapper, Row } from 'react-native-table-component';
 
 export default class Game extends Component{
@@ -17,7 +17,8 @@ export default class Game extends Component{
       "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
       "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
       structure: [],
-      remaining_cards: 0
+      remaining_cards: 0,
+      disabledButtons: []
     }
   }
 
@@ -107,27 +108,80 @@ export default class Game extends Component{
     })
     this.setState({structure: structure_array, number_of_cards: number_of_cards})
   }
+
+  playCard(id, card, type_card){
+    const drink_users = []
+    this.state.users.forEach(user => {
+      if (user.cards.includes(card)) {
+        drink_users.push(user.name)
+        if (type_card) {
+          //const drinks_user = localStorage.getItem(user.name+"_drinks")
+          //localStorage.setItem(user.name+"_drinks", parseInt(drinks_user) + 1)    
+        }                
+      }
+    });
+    if (drink_users.length > 0) {
+      if (type_card) {
+        alert("Beben: " + drink_users.join(", "))    
+      }else{
+        alert("Regalan: " + drink_users.join(", "))
+      }      
+    }else{
+      alert("Nadie")
+    }
+    // Change number of remaining cards
+    this.setState({
+      number_of_cards: this.state.number_of_cards - 1
+    })
+    // Disable card
+    const removeCard = this.state.disabledButtons.push(id)
+    // Check is game is finished
+    if (this.state.number_of_cards === 1) {
+      console.log("GAME OVER")
+    }
+  }
+
+  isDisabled(id){
+    if (this.state.disabledButtons.includes(id)) {
+      return true
+    }else{
+      return false
+    }
+  }
   
   render(){
-
-    const state = this.state;
+    const structure_array = this.state.structure
+    const widthArr = new Array(structure_array.length)
     const tableData = [];
-    const widthArr = new Array(state.pyramid_height)
-    for (let i = 0; i < state.pyramid_height; i += 1) {
-      widthArr[i] = 30
+    for (let i = 0; i < structure_array.length; i += 1) {
       const rowData = [];
-      for (let j = 0; j < state.pyramid_height; j += 1) {
-        rowData.push("X");
+      for (let j = 0; j < structure_array[i].length; j += 1) {
+        const var_id = `${i}.${j}`
+        widthArr[i] = 35
+        rowData.push(
+        <Button
+          id = {var_id}
+          key = {var_id}
+          ref = {(id) => id}
+          disabled = {this.isDisabled(var_id)}
+          value={structure_array[i][j][0]}
+          title="X"
+          onPress={() => 
+            this.playCard(var_id,structure_array[i][j][1],structure_array[i][j][2])
+          }
+        >
+          <Text>X</Text>
+          </Button>
+        );
       }
       tableData.push(rowData);
     }
-
     return(
       <View style={styles.containerTable}>
         <ScrollView horizontal={true}>
           <View>
             <ScrollView style={styles.dataWrapper}>
-              <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
+              <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9'}}>
                 {
                   tableData.map((rowData, index) => (
                     <Row
@@ -155,9 +209,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  containerTable: { alignItems:"center", flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  containerTable: { 
+    alignItems:"center",
+    flex: 1,
+    padding: 16,
+    paddingTop: 30,
+    backgroundColor: '#fff' 
+  },
   header: { height: 50, backgroundColor: '#537791' },
   text: { textAlign: 'center', fontWeight: '100' },
   dataWrapper: { marginTop: -1 },
-  row: { height: 40, backgroundColor: '#d1625a' }
+  row: { 
+    height: 40,
+    backgroundColor: '#d1625a'
+  }
 });
