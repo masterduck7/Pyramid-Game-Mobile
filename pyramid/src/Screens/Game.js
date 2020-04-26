@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
+import { Image, Modal, StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
 import { Table, Row } from 'react-native-table-component';
 
 export default class Game extends Component{
@@ -20,9 +20,44 @@ export default class Game extends Component{
       structure: [],
       remaining_cards: 0,
       disabledButtons: [],
-      playedButtons: []
+      playedButtons: [],
+      modalCard: false,
+      textModal: "",
+      activeCard: ""
     }
   }
+
+  get cardImage() {
+    switch (this.state.activeCard) {
+      case "A":
+        return require('../../assets/Cards/A.png');
+      case "2":
+        return require('../../assets/Cards/2.png');
+      case "3":
+        return require('../../assets/Cards/3.png');
+      case "4":
+        return require('../../assets/Cards/4.png');
+      case "5":
+        return require('../../assets/Cards/5.png');
+      case "6":
+        return require('../../assets/Cards/6.png');
+      case "7":
+        return require('../../assets/Cards/7.png');
+      case "8":
+        return require('../../assets/Cards/8.png');
+      case "9":
+        return require('../../assets/Cards/9.png');
+      case "10":
+        return require('../../assets/Cards/10.png');
+      case "J":
+        return require('../../assets/Cards/J.png');
+      case "Q":
+        return require('../../assets/Cards/Q.png');
+      case "K":
+        return require('../../assets/Cards/K.png');
+    }
+  }
+
 
   componentDidMount(){
     const cards = this.setUserCards();
@@ -170,6 +205,9 @@ export default class Game extends Component{
   }
 
   playCard(id, card, type_card){
+    this.setState({
+      activeCard: card
+    })
     const drink_users = []
     this.state.users.forEach(user => {
       if (user.cards.includes(card)) {
@@ -181,12 +219,21 @@ export default class Game extends Component{
     });
     if (drink_users.length > 0) {
       if (type_card) {
-        alert("Beben: " + drink_users.join(", "))    
+        this.setState({
+          textModal: "Beben: " + drink_users.join(", "),
+          modalCard: true
+        })
       }else{
-        alert("Regalan: " + drink_users.join(", "))
+        this.setState({
+          textModal: "Regalan: " + drink_users.join(", "),
+          modalCard: true
+        })
       }      
     }else{
-      alert("Nadie")
+      this.setState({
+        textModal: "Nadie Bebe",
+        modalCard: true
+      })
     }
     // Change number of remaining cards
     this.setState({
@@ -209,7 +256,7 @@ export default class Game extends Component{
       }
     }
   }
-  
+
   render(){
     const structure_array = this.state.structure
     const widthArr = new Array(structure_array.length)
@@ -242,6 +289,18 @@ export default class Game extends Component{
     return(
       <View style={styles.containerTable}>
         <ScrollView horizontal={true}>
+          <Modal            
+            animationType = {"fade"}  
+            transparent = {false}  
+            visible = {this.state.modalCard}  
+          >  
+            <View style = {styles.modal}>  
+              <Image fadeDuration={3} source={this.cardImage} style={{width:210, height:330}} />
+              <Text style = {{...styles.textModal, bottom: 10}}>{this.state.textModal}</Text>  
+              <Button title="Cerrar" onPress = {() => {  
+                this.setState({ modalCard:!this.state.modalCard})}}/>  
+            </View>  
+          </Modal>
           <View>
               <Table>
                 {
@@ -282,7 +341,10 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     backgroundColor: '#fff',
   },
-  text: { textAlign: 'center', fontWeight: '100' },
+  text: {
+    textAlign: 'center',
+    fontWeight: '100'
+  },
   row: { 
     height: 40,
     justifyContent: 'center',
@@ -291,5 +353,22 @@ const styles = StyleSheet.create({
   button: {
     flex:1,
     marginRight: 3
+  },  
+  modal: {  
+    justifyContent: 'center',  
+    alignItems: 'center',   
+    backgroundColor : "#00BCD4",   
+    height: 600 ,  
+    width: '80%',  
+    borderRadius:10,  
+    borderWidth: 1,  
+    borderColor: '#fff',    
+    marginTop: 80,  
+    marginLeft: 40,  
+  },  
+  textModal: {
+    fontSize: 30,
+    color: '#3f2949',  
+    marginTop: 30  
   }
 });
