@@ -204,7 +204,7 @@ export default class Game extends Component{
     })
   }
 
-  playCard(id, card, type_card){
+  playCard(nDrinks, id, card, type_card){
     this.setState({
       activeCard: card
     })
@@ -219,15 +219,29 @@ export default class Game extends Component{
     });
     if (drink_users.length > 0) {
       if (type_card) {
-        this.setState({
-          textModal: "Beben: " + drink_users.join(", "),
-          modalCard: true
-        })
+        if (nDrinks === 0) {
+          this.setState({
+            textModal: "Beben "+ (nDrinks + 1) + " trago: " + drink_users.join(", "),
+            modalCard: true
+          })
+        } else {
+          this.setState({
+            textModal: "Beben "+ (nDrinks + 1) + " tragos: " + drink_users.join(", "),
+            modalCard: true
+          })
+        }
       }else{
-        this.setState({
-          textModal: "Regalan: " + drink_users.join(", "),
-          modalCard: true
-        })
+        if (nDrinks === 0) {
+          this.setState({
+            textModal: "Regalan "+ (nDrinks + 1) + " trago: " + drink_users.join(", "),
+            modalCard: true
+          })
+        } else {
+          this.setState({
+            textModal: "Regalan "+ (nDrinks + 1) + " tragos: " + drink_users.join(", "),
+            modalCard: true
+          })
+        }
       }      
     }else{
       this.setState({
@@ -276,7 +290,7 @@ export default class Game extends Component{
             value={structure_array[i][j][0]}
             title="X"
             onPress={() => 
-              this.playCard(var_id,structure_array[i][j][1],structure_array[i][j][2])
+              this.playCard(i ,var_id,structure_array[i][j][1],structure_array[i][j][2])
             }
           >
           <Text>X</Text>
@@ -355,12 +369,12 @@ const styles = StyleSheet.create({
     marginRight: 3
   },  
   modal: {  
-    justifyContent: 'center',  
+    justifyContent: 'space-around',  
     alignItems: 'center',   
     backgroundColor : "#00BCD4",   
     height: 600 ,  
     width: '80%',  
-    borderRadius:10,  
+    borderRadius:20,  
     borderWidth: 1,  
     borderColor: '#fff',    
     marginTop: 80,  
@@ -369,6 +383,7 @@ const styles = StyleSheet.create({
   textModal: {
     fontSize: 30,
     color: '#3f2949',  
-    marginTop: 30  
+    marginTop: 30,
+    textAlign: 'center'
   }
 });
