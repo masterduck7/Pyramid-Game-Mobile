@@ -8,7 +8,7 @@ export default class Home extends Component {
     return(
       <View style={styles.container}>
         <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
-        <Text style={{color: '#474442', fontSize: 55, top: -20, left: -50}}>PYRAMID</Text>
+        <Text style={{color: '#474442', fontSize: 55, top: -20, left: -50}}>PIRÁMIDE</Text>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Setup')}
           style={{ borderColor: '#474442' , padding: 15, borderWidth: 2, top: 20 }}>

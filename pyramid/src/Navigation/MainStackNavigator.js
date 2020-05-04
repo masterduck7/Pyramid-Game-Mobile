@@ -15,21 +15,21 @@ function MainStackNavigator() {
     <NavigationContainer>
         <Stack.Navigator initialRouteName='Home' 
         screenOptions={{
-          gestureEnabled: true
+          gestureEnabled: true,
+          headerShown: false
         }}>
             <Stack.Screen name='Home' component={Home}
-            // options={{
-            //     title: 'Inicio',
-            //     headerStyle: {
-            //         backgroundColor: '#474442'
-            //     },
-            //     headerTintColor: 'white',
-            //     headerTitleStyle: {
-            //         fontWeight: 'bold'
-            //     },
-            //     headerTitleAlign:"center"
-            // }}
-            options={{headerShown:false}}/>
+            options={{
+                title: 'Inicio',
+                headerStyle: {
+                    backgroundColor: '#474442'
+                },
+                headerTintColor: 'white',
+                headerTitleStyle: {
+                    fontWeight: 'bold'
+                },
+                headerTitleAlign:"center"
+            }}/>
             <Stack.Screen name='Instructions' component={Instructions} 
             options={{
                 title: 'Instrucciones',
@@ -55,31 +55,29 @@ function MainStackNavigator() {
                 headerTitleAlign:"center"
             }}/>
             <Stack.Screen name='Game' component={Game} 
-            // options={{
-            //     title: 'Juego',
-            //     headerStyle: {
-            //         backgroundColor: '#474442'
-            //     },
-            //     headerTintColor: 'white',
-            //     headerTitleStyle: {
-            //         fontWeight: 'bold'
-            //     },
-            //     headerTitleAlign:"center"
-            // }}
-            options={{headerShown:false}}/>
+            options={{
+                title: 'Juego',
+                headerStyle: {
+                    backgroundColor: '#474442'
+                },
+                headerTintColor: 'white',
+                headerTitleStyle: {
+                    fontWeight: 'bold'
+                },
+                headerTitleAlign:"center"
+            }}/>
             <Stack.Screen name='Statistics' component={Statistics} 
-            // options={{
-            //     title: 'Resultados',
-            //     headerStyle: {
-            //         backgroundColor: '#474442'
-            //     },
-            //     headerTintColor: 'white',
-            //     headerTitleStyle: {
-            //         fontWeight: 'bold'
-            //     },
-            //     headerTitleAlign:"center"
-            // }}
-            options={{headerShown:false}}/>
+            options={{
+                title: 'Resultados',
+                headerStyle: {
+                    backgroundColor: '#474442'
+                },
+                headerTintColor: 'white',
+                headerTitleStyle: {
+                    fontWeight: 'bold'
+                },
+                headerTitleAlign:"center"
+            }}/>
         </Stack.Navigator>
     </NavigationContainer>
   )
