@@ -18,24 +18,25 @@ function MainStackNavigator() {
           gestureEnabled: true
         }}>
             <Stack.Screen name='Home' component={Home}
-            options={{
-                title: 'Inicio',
-                headerStyle: {
-                    backgroundColor: '#d1625a'
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold'
-                },
-                headerTitleAlign:"center"
-            }}/>
+            // options={{
+            //     title: 'Inicio',
+            //     headerStyle: {
+            //         backgroundColor: '#474442'
+            //     },
+            //     headerTintColor: 'white',
+            //     headerTitleStyle: {
+            //         fontWeight: 'bold'
+            //     },
+            //     headerTitleAlign:"center"
+            // }}
+            options={{headerShown:false}}/>
             <Stack.Screen name='Instructions' component={Instructions} 
             options={{
                 title: 'Instrucciones',
                 headerStyle: {
-                    backgroundColor: '#d1625a'
+                    backgroundColor: '#474442'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: 'white',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 },
@@ -45,38 +46,40 @@ function MainStackNavigator() {
             options={{
                 title: 'Variables',
                 headerStyle: {
-                    backgroundColor: '#d1625a'
+                    backgroundColor: '#474442'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: 'white',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 },
                 headerTitleAlign:"center"
             }}/>
             <Stack.Screen name='Game' component={Game} 
-            options={{
-                title: 'Juego',
-                headerStyle: {
-                    backgroundColor: '#d1625a'
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold'
-                },
-                headerTitleAlign:"center"
-            }}/>
+            // options={{
+            //     title: 'Juego',
+            //     headerStyle: {
+            //         backgroundColor: '#474442'
+            //     },
+            //     headerTintColor: 'white',
+            //     headerTitleStyle: {
+            //         fontWeight: 'bold'
+            //     },
+            //     headerTitleAlign:"center"
+            // }}
+            options={{headerShown:false}}/>
             <Stack.Screen name='Statistics' component={Statistics} 
-            options={{
-                title: 'Resultados',
-                headerStyle: {
-                    backgroundColor: '#d1625a'
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold'
-                },
-                headerTitleAlign:"center"
-            }}/>
+            // options={{
+            //     title: 'Resultados',
+            //     headerStyle: {
+            //         backgroundColor: '#474442'
+            //     },
+            //     headerTintColor: 'white',
+            //     headerTitleStyle: {
+            //         fontWeight: 'bold'
+            //     },
+            //     headerTitleAlign:"center"
+            // }}
+            options={{headerShown:false}}/>
         </Stack.Navigator>
     </NavigationContainer>
   )

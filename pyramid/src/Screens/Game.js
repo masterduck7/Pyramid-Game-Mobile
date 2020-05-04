@@ -315,7 +315,7 @@ export default class Game extends Component{
                 this.setState({ modalCard:!this.state.modalCard})}}/>  
             </View>  
           </Modal>
-          <View>
+          <View style={{top: 100}}>
               <Table>
                 {
                   tableData.map((rowData, index) => (
