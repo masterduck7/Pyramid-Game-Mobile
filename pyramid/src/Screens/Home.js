@@ -10,7 +10,7 @@ export default class Home extends Component {
         <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
         <Text style={{color: '#474442', fontSize: 50, top: -20, left: -55}}>PIRÁMIDE</Text>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Setup')}
+          onPress={() => this.props.navigation.navigate('Instructions')}
           style={{ borderColor: '#474442' , padding: 15, borderWidth: 2, top: 20 }}>
           <Text style={{ fontSize: 20, color: '#474442' }}>A BEBER !!!</Text>
         </TouchableOpacity>
