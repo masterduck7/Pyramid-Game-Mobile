@@ -296,12 +296,12 @@ export default class Game extends Component{
             ref = {(id) => id}
             disabled = {this.isDisabled(var_id)}
             value={structure_array[i][j][0]}
-            title="X"
+            title=""
+            color='#474442'
             onPress={() => 
               this.playCard(i ,var_id,structure_array[i][j][1],structure_array[i][j][2])
             }
           >
-          <Text>X</Text>
           </Button>
         </View>
         );
@@ -349,7 +349,7 @@ export default class Game extends Component{
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Statistics', {users: this.state.users})}
           style={styles.buttonSubmit}>
-          <Text style={{ fontSize: 20, color: '#474442' }}>¿Quien bebió más?</Text>
+          <Text style={{ fontSize: 20, color: '#474442' }}>RESULTADOS</Text>
         </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex:1,
-    marginRight: 3
+    marginRight: 3,
   },  
   modal: {  
     justifyContent: 'space-around',  
@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
     top: -70
   },
   buttonClose: {
-    padding: 5,
+    padding: 6,
     alignSelf:"center",
     borderColor: '#474442',
     borderWidth: 2,
