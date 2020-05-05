@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Image, Modal, StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
+import { Image, ImageBackground, Modal, StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
 import { Table, Row } from 'react-native-table-component';
+import background from '../../assets/Background.png';
+import BackgroundCard from '../../assets/BackgroundCard.png';
 
 export default class Game extends Component{
   constructor(props){
@@ -23,6 +25,7 @@ export default class Game extends Component{
       playedButtons: [],
       modalCard: false,
       textModal: "",
+      userModal: "",
       activeCard: ""
     }
   }
@@ -221,24 +224,28 @@ export default class Game extends Component{
       if (type_card) {
         if (nDrinks === 0) {
           this.setState({
-            textModal: "Beben "+ (nDrinks + 1) + " trago: " + drink_users.join(", "),
+            textModal: "BEBEN "+ (nDrinks + 1) + " TRAGO:",
+            userModal: drink_users.join(", "),
             modalCard: true
           })
         } else {
           this.setState({
-            textModal: "Beben "+ (nDrinks + 1) + " tragos: " + drink_users.join(", "),
+            textModal: "BEBEN "+ (nDrinks + 1) + " TRAGOS:",
+            userModal: drink_users.join(", "),
             modalCard: true
           })
         }
       }else{
         if (nDrinks === 0) {
           this.setState({
-            textModal: "Regalan "+ (nDrinks + 1) + " trago: " + drink_users.join(", "),
+            textModal: "REGALAN "+ (nDrinks + 1) + " TRAGO:",
+            userModal: drink_users.join(", "),
             modalCard: true
           })
         } else {
           this.setState({
-            textModal: "Regalan "+ (nDrinks + 1) + " tragos: " + drink_users.join(", "),
+            textModal: "REGALAN "+ (nDrinks + 1) + " TRAGOS:",
+            userModal: drink_users.join(", "),
             modalCard: true
           })
         }
@@ -246,6 +253,7 @@ export default class Game extends Component{
     }else{
       this.setState({
         textModal: "Nadie Bebe",
+        userModal: "",
         modalCard: true
       })
     }
@@ -302,17 +310,24 @@ export default class Game extends Component{
     }
     return(
       <View style={styles.containerTable}>
+        <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
         <ScrollView horizontal={true}>
           <Modal            
             animationType = {"fade"}  
-            transparent = {false}  
+            transparent = {true}  
             visible = {this.state.modalCard}  
           >  
             <View style = {styles.modal}>  
-              <Image fadeDuration={3} source={this.cardImage} style={{width:210, height:330}} />
-              <Text style = {{...styles.textModal, bottom: 10}}>{this.state.textModal}</Text>  
-              <Button title="Cerrar" onPress = {() => {  
-                this.setState({ modalCard:!this.state.modalCard})}}/>  
+            <ImageBackground source={BackgroundCard} resizeMethod="resize" style={styles.image_modal}>
+              <Text style = {{...styles.textModal, top: -30, left: -15, fontSize: 30}}>{this.state.textModal}</Text>
+              <Text style = {{...styles.textModal, top: -30}}>{this.state.userModal}</Text>
+              <Image fadeDuration={3} source={this.cardImage} style={{width:210, height:330, top: -10}} />
+              <TouchableOpacity
+                onPress = {() => {this.setState({ modalCard:!this.state.modalCard})}}
+                style={styles.buttonClose}>
+                <Text style={{ fontSize: 20, color: '#474442' }}>CERRAR</Text>
+              </TouchableOpacity>
+            </ImageBackground>
             </View>  
           </Modal>
           <View style={{top: 100}}>
@@ -333,9 +348,10 @@ export default class Game extends Component{
         </ScrollView>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Statistics', {users: this.state.users})}
-          style={{ backgroundColor: '#d1625a', padding: 10, bottom: 40, borderRadius: 5 }}>
-          <Text style={{ fontSize: 20, color: '#fff' }}>¿Quien bebió más?</Text>
+          style={styles.buttonSubmit}>
+          <Text style={{ fontSize: 20, color: '#474442' }}>¿Quien bebió más?</Text>
         </TouchableOpacity>
+        </ImageBackground>
       </View>
     );
   }
@@ -344,15 +360,12 @@ export default class Game extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
   },
   containerTable: { 
     alignItems:"center",
     flex: 1,
-    padding: 16,
-    paddingTop: 30,
+    flexDirection: 'column',
     backgroundColor: '#fff',
   },
   text: {
@@ -371,19 +384,48 @@ const styles = StyleSheet.create({
   modal: {  
     justifyContent: 'space-around',  
     alignItems: 'center',   
-    backgroundColor : "#00BCD4",   
-    height: 600 ,  
-    width: '80%',  
-    borderRadius:20,  
+    height: 720 ,  
+    width: '90%',  
     borderWidth: 1,  
-    borderColor: '#fff',    
-    marginTop: 80,  
-    marginLeft: 40,  
+    borderColor: '#ff887f',    
+    marginTop: 35,  
+    marginLeft: 20,  
   },  
   textModal: {
-    fontSize: 30,
-    color: '#3f2949',  
+    fontSize: 25,
+    color: '#474442',  
     marginTop: 30,
     textAlign: 'center'
+  },
+  image: {
+    flex: 1,
+    resizeMode: "stretch",
+    justifyContent: "center",
+    alignItems: 'center', 
+    width: "120%",
+    height: "100%"
+  },
+  image_modal: {
+    flex: 1,
+    resizeMode: "stretch",
+    justifyContent: "center",
+    alignItems: 'center', 
+    width: "100%",
+    height: "100%"
+  },
+  buttonSubmit: {
+    marginTop: 30,
+    padding: 10,
+    alignSelf:"center",
+    borderColor: '#474442',
+    borderWidth: 2,
+    top: -150
+  },
+  buttonClose: {
+    padding: 5,
+    alignSelf:"center",
+    borderColor: '#474442',
+    borderWidth: 2,
+    top: 10
   }
 });
