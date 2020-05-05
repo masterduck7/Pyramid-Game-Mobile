@@ -419,7 +419,7 @@ const styles = StyleSheet.create({
     alignSelf:"center",
     borderColor: '#474442',
     borderWidth: 2,
-    top: -150
+    top: -70
   },
   buttonClose: {
     padding: 5,
