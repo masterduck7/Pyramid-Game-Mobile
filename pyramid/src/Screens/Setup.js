@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Alert, ImageBackground, Text, View, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
+import { Input, CheckBox } from 'react-native-elements';
 import { Formik } from 'formik';
+import background from '../../assets/Background.png';
 
 export default class Setup extends Component{
     constructor(props){
@@ -20,8 +21,11 @@ export default class Setup extends Component{
     render(){
         return(
             <View style={styles.container}>
-            <ScrollView>
-                <Text style={{ textAlign:'center', color: '#888', fontSize: 40, top:-15}}>Ingresar Datos:</Text>
+            <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
+            <ScrollView style={{width: "100%"}}>
+                <Text style={{ textAlign:'center', color: '#474442', fontSize: 15, top:60, marginRight: 170}}>VARIABLES:</Text>
+                <Text style={{ textAlign:'center', color: '#474442', fontSize: 25, top:60, marginRight: 170}}>INGRESAR:</Text>
+                <Text style={{ textAlign:'center', color: '#474442', fontSize: 25, top:65, marginRight: 170}}>DATOS:</Text>
                 <Formik
                     initialValues={{ players: [], }}
                     onSubmit={values => {
@@ -44,67 +48,94 @@ export default class Setup extends Component{
                             )
                         }
                         else if(this.state.pyramid_height === 0 || this.state.pyramid_height > 10 && values.players.length > 0){
-                            alert("Altura pirámide debe estar entre 1 y 10")
+                            Alert.alert(
+                                "Error",
+                                "Altura pirámide debe estar entre 1 y 10",
+                                [
+                                  {
+                                    text: "OK",
+                                    style: "cancel"
+                                  }
+                                ],
+                                { cancelable: false }
+                            ); 
                         }
                         else{
-                            alert("Favor completa todos los campos")
+                            Alert.alert(
+                                "Error",
+                                "Favor ingresar todos los datos",
+                                [
+                                  {
+                                    text: "OK",
+                                    style: "cancel"
+                                  }
+                                ],
+                                { cancelable: false }
+                            );
                         }
                     }}
                 >
                 {({ handleChange, handleSubmit, values, setFieldValue }) => (
-                    <View style={{alignItems:'center'}}>
-                    <Switch
-                        onValueChange = {value => {
-                            this.setState({
-                                hard : value
-                            })
-                        }}
-                        value = {this.state.hard}
-                    /><Text>Dificil</Text>
-                    <Text style={{ paddingTop:10, color: '#888', fontSize: 20}}>Ingresa Altura pirámide:</Text>
+                    <View style={{alignItems:'center', width: "70%", marginLeft: 70, marginTop: 120}}>
+                    <Text style={{top: -30, left: -90, fontSize: 18}}>DIFICIL</Text>
+                    <CheckBox
+                        containerStyle = {{left: -90, marginTop: -30}}
+                        checkedColor = '#474442'
+                        uncheckedColor = '#474442'
+                        checkedIcon= "check-square"
+                        size={30}
+                        checked = {this.state.hard}
+                        onPress={() => this.setState({hard: !this.state.hard})}
+                    />
+                    <Text style={{ paddingTop: -10, color: '#474442', fontSize: 20, left: 20}}>INGRESA ALTURA MÁXIMA:</Text>
                     <Input
-                        placeholder="Valores 1-10"
+                        underlineColorAndroid="transparent"
+                        containerStyle={{borderWidth: 2, borderColor: '#474442', left: 20}}
+                        inputContainerStyle={{borderBottomWidth:0}}
                         onChange = {value => {
                             this.setState({
                                 pyramid_height : value.nativeEvent.text
                             })
                         }}
                     />
-                    <Text style={{paddingTop:10, color: '#888', fontSize: 20}}>Ingresar Jugadores:</Text>
+                    <Text style={{paddingTop: 30, color: '#474442', fontSize: 20, left: 40}}>INGRESAR JUGADORES:</Text>
                     {values.players.map(({ name }, index) => (
                         <Input
-                            placeholder="Nombre"
+                            containerStyle={{borderWidth: 2, marginTop: 5, borderColor: '#474442', left: 20}}
+                            inputContainerStyle={{borderBottomWidth:0}}
+                            underlineColorAndroid="transparent"
                             key={index}
                             id={index}
                             onChangeText={handleChange(`players[${index}].name`)}
                             value={values.players[index].name}
                         />
                     ))}
-                    <View style={{ flexDirection:"row" }}>
+                    <View style={{ flexDirection:"row", left: 40 }}>
                         <View style={styles.buttonStyle}>
                             <TouchableOpacity
                                 onPress={() => setFieldValue('players', [...values.players, this.createPlayer()])}
                                 style={styles.buttonUsers}>
-                                <Text style={{ fontSize: 20, color: '#fff' }}>+</Text>
+                                <Text style={{ fontSize: 20, color: '#474442' }}>+</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.buttonStyle}>
                             <TouchableOpacity
                                 onPress={() => setFieldValue('players', [...values.players.slice(0,-1)])}
                                 style={styles.buttonUsers}>
-                                <Text style={{ fontSize: 20, color: '#fff' }}>-</Text>
+                                <Text style={{ fontSize: 20, color: '#474442' }}>-</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <TouchableOpacity
                         onPress={handleSubmit}
                         style={styles.buttonSubmit}>
-                        <Text style={{ fontSize: 20, color: '#fff' }}>Salud !!!</Text>
+                        <Text style={{ fontSize: 20, color: '#474442' }}>SALUD !!!</Text>
                     </TouchableOpacity>
                     </View>
                 )}
                 </Formik>
             </ScrollView>
+            </ImageBackground>
             </View>
         );
     }
@@ -112,25 +143,36 @@ export default class Setup extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
     },
     buttonUsers:{
         marginTop:10,
         marginHorizontal:5,
-        backgroundColor: '#506280',
         padding: 10,
         alignSelf:"center",
-        borderRadius: 5
+        borderColor: '#474442',
+        borderWidth: 2
     },
     buttonSubmit: {
-        marginTop:10,
-        backgroundColor: '#d1625a',
+        marginTop: 30,
         padding: 10,
         alignSelf:"center",
-        borderRadius: 5
+        borderColor: '#474442',
+        borderWidth: 2,
+        left: 100
+    },
+    image: {
+      flex: 1,
+      resizeMode: "stretch",
+      justifyContent: "center",
+      alignItems: 'center', 
+      width: "100%",
+      height: "100%"
+    },
+    textInput: {
+        color: '#474442',
     }
 });

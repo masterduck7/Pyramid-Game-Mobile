@@ -8,7 +8,6 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@ant-design/react-native": "^3.3.0",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/native": "^5.1.6",
     "@react-navigation/stack": "^5.0.0",

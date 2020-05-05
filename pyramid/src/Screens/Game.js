@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
+import { Image, ImageBackground, Modal, StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
 import { Table, Row } from 'react-native-table-component';
+import background from '../../assets/Background.png';
+import BackgroundCard from '../../assets/BackgroundCard.png';
 
 export default class Game extends Component{
   constructor(props){
@@ -20,9 +22,45 @@ export default class Game extends Component{
       structure: [],
       remaining_cards: 0,
       disabledButtons: [],
-      playedButtons: []
+      playedButtons: [],
+      modalCard: false,
+      textModal: "",
+      userModal: "",
+      activeCard: ""
     }
   }
+
+  get cardImage() {
+    switch (this.state.activeCard) {
+      case "A":
+        return require('../../assets/Cards/A.png');
+      case "2":
+        return require('../../assets/Cards/2.png');
+      case "3":
+        return require('../../assets/Cards/3.png');
+      case "4":
+        return require('../../assets/Cards/4.png');
+      case "5":
+        return require('../../assets/Cards/5.png');
+      case "6":
+        return require('../../assets/Cards/6.png');
+      case "7":
+        return require('../../assets/Cards/7.png');
+      case "8":
+        return require('../../assets/Cards/8.png');
+      case "9":
+        return require('../../assets/Cards/9.png');
+      case "10":
+        return require('../../assets/Cards/10.png');
+      case "J":
+        return require('../../assets/Cards/J.png');
+      case "Q":
+        return require('../../assets/Cards/Q.png');
+      case "K":
+        return require('../../assets/Cards/K.png');
+    }
+  }
+
 
   componentDidMount(){
     const cards = this.setUserCards();
@@ -169,7 +207,10 @@ export default class Game extends Component{
     })
   }
 
-  playCard(id, card, type_card){
+  playCard(nDrinks, id, card, type_card){
+    this.setState({
+      activeCard: card
+    })
     const drink_users = []
     this.state.users.forEach(user => {
       if (user.cards.includes(card)) {
@@ -181,12 +222,40 @@ export default class Game extends Component{
     });
     if (drink_users.length > 0) {
       if (type_card) {
-        alert("Beben: " + drink_users.join(", "))    
+        if (nDrinks === 0) {
+          this.setState({
+            textModal: "BEBEN "+ (nDrinks + 1) + " TRAGO:",
+            userModal: drink_users.join(", "),
+            modalCard: true
+          })
+        } else {
+          this.setState({
+            textModal: "BEBEN "+ (nDrinks + 1) + " TRAGOS:",
+            userModal: drink_users.join(", "),
+            modalCard: true
+          })
+        }
       }else{
-        alert("Regalan: " + drink_users.join(", "))
+        if (nDrinks === 0) {
+          this.setState({
+            textModal: "REGALAN "+ (nDrinks + 1) + " TRAGO:",
+            userModal: drink_users.join(", "),
+            modalCard: true
+          })
+        } else {
+          this.setState({
+            textModal: "REGALAN "+ (nDrinks + 1) + " TRAGOS:",
+            userModal: drink_users.join(", "),
+            modalCard: true
+          })
+        }
       }      
     }else{
-      alert("Nadie")
+      this.setState({
+        textModal: "Nadie Bebe",
+        userModal: "",
+        modalCard: true
+      })
     }
     // Change number of remaining cards
     this.setState({
@@ -209,7 +278,7 @@ export default class Game extends Component{
       }
     }
   }
-  
+
   render(){
     const structure_array = this.state.structure
     const widthArr = new Array(structure_array.length)
@@ -227,12 +296,12 @@ export default class Game extends Component{
             ref = {(id) => id}
             disabled = {this.isDisabled(var_id)}
             value={structure_array[i][j][0]}
-            title="X"
+            title=""
+            color='#474442'
             onPress={() => 
-              this.playCard(var_id,structure_array[i][j][1],structure_array[i][j][2])
+              this.playCard(i ,var_id,structure_array[i][j][1],structure_array[i][j][2])
             }
           >
-          <Text>X</Text>
           </Button>
         </View>
         );
@@ -241,8 +310,27 @@ export default class Game extends Component{
     }
     return(
       <View style={styles.containerTable}>
+        <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
         <ScrollView horizontal={true}>
-          <View>
+          <Modal            
+            animationType = {"fade"}  
+            transparent = {true}  
+            visible = {this.state.modalCard}  
+          >  
+            <View style = {styles.modal}>  
+            <ImageBackground source={BackgroundCard} resizeMethod="resize" style={styles.image_modal}>
+              <Text style = {{...styles.textModal, top: -30, left: -15, fontSize: 30}}>{this.state.textModal}</Text>
+              <Text style = {{...styles.textModal, top: -30}}>{this.state.userModal}</Text>
+              <Image fadeDuration={3} source={this.cardImage} style={{width:210, height:330, top: -10}} />
+              <TouchableOpacity
+                onPress = {() => {this.setState({ modalCard:!this.state.modalCard})}}
+                style={styles.buttonClose}>
+                <Text style={{ fontSize: 20, color: '#474442' }}>CERRAR</Text>
+              </TouchableOpacity>
+            </ImageBackground>
+            </View>  
+          </Modal>
+          <View style={{top: 100}}>
               <Table>
                 {
                   tableData.map((rowData, index) => (
@@ -260,9 +348,10 @@ export default class Game extends Component{
         </ScrollView>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Statistics', {users: this.state.users})}
-          style={{ backgroundColor: '#d1625a', padding: 10, bottom: 40, borderRadius: 5 }}>
-          <Text style={{ fontSize: 20, color: '#fff' }}>¿Quien bebió más?</Text>
+          style={styles.buttonSubmit}>
+          <Text style={{ fontSize: 20, color: '#474442' }}>RESULTADOS</Text>
         </TouchableOpacity>
+        </ImageBackground>
       </View>
     );
   }
@@ -271,18 +360,18 @@ export default class Game extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'row',
   },
   containerTable: { 
     alignItems:"center",
     flex: 1,
-    padding: 16,
-    paddingTop: 30,
+    flexDirection: 'column',
     backgroundColor: '#fff',
   },
-  text: { textAlign: 'center', fontWeight: '100' },
+  text: {
+    textAlign: 'center',
+    fontWeight: '100'
+  },
   row: { 
     height: 40,
     justifyContent: 'center',
@@ -290,6 +379,53 @@ const styles = StyleSheet.create({
   },
   button: {
     flex:1,
-    marginRight: 3
+    marginRight: 3,
+  },  
+  modal: {  
+    justifyContent: 'space-around',  
+    alignItems: 'center',   
+    height: 720 ,  
+    width: '90%',  
+    borderWidth: 1,  
+    borderColor: '#ff887f',    
+    marginTop: 35,  
+    marginLeft: 20,  
+  },  
+  textModal: {
+    fontSize: 25,
+    color: '#474442',  
+    marginTop: 30,
+    textAlign: 'center'
+  },
+  image: {
+    flex: 1,
+    resizeMode: "stretch",
+    justifyContent: "center",
+    alignItems: 'center', 
+    width: "120%",
+    height: "100%"
+  },
+  image_modal: {
+    flex: 1,
+    resizeMode: "stretch",
+    justifyContent: "center",
+    alignItems: 'center', 
+    width: "100%",
+    height: "100%"
+  },
+  buttonSubmit: {
+    marginTop: 30,
+    padding: 10,
+    alignSelf:"center",
+    borderColor: '#474442',
+    borderWidth: 2,
+    top: -70
+  },
+  buttonClose: {
+    padding: 6,
+    alignSelf:"center",
+    borderColor: '#474442',
+    borderWidth: 2,
+    top: 10
   }
 });

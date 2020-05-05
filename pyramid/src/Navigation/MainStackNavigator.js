@@ -15,15 +15,16 @@ function MainStackNavigator() {
     <NavigationContainer>
         <Stack.Navigator initialRouteName='Home' 
         screenOptions={{
-          gestureEnabled: true
+          gestureEnabled: true,
+          headerShown: false
         }}>
             <Stack.Screen name='Home' component={Home}
             options={{
                 title: 'Inicio',
                 headerStyle: {
-                    backgroundColor: '#d1625a'
+                    backgroundColor: '#474442'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: 'white',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 },
@@ -33,9 +34,9 @@ function MainStackNavigator() {
             options={{
                 title: 'Instrucciones',
                 headerStyle: {
-                    backgroundColor: '#d1625a'
+                    backgroundColor: '#474442'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: 'white',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 },
@@ -45,9 +46,9 @@ function MainStackNavigator() {
             options={{
                 title: 'Variables',
                 headerStyle: {
-                    backgroundColor: '#d1625a'
+                    backgroundColor: '#474442'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: 'white',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 },
@@ -57,9 +58,9 @@ function MainStackNavigator() {
             options={{
                 title: 'Juego',
                 headerStyle: {
-                    backgroundColor: '#d1625a'
+                    backgroundColor: '#474442'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: 'white',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 },
@@ -69,9 +70,9 @@ function MainStackNavigator() {
             options={{
                 title: 'Resultados',
                 headerStyle: {
-                    backgroundColor: '#d1625a'
+                    backgroundColor: '#474442'
                 },
-                headerTintColor: '#fff',
+                headerTintColor: 'white',
                 headerTitleStyle: {
                     fontWeight: 'bold'
                 },
