@@ -1,9 +1,34 @@
 import React, { Component } from 'react';
-import { Image, ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { Alert, BackHandler, Image, ImageBackground, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Example from '../../assets/Example.png';
 import background from '../../assets/Background.png';
 
 export default class Home extends Component {
+
+  componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress',this.handleBackButtonClick);
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress',this.handleBackButtonClickAfter);
+  }
+
+  handleBackButtonClick() {
+    Alert.alert("¿Se acabo la noche?", "¿Quieres salir del juego?", [
+      {
+        text: "NO",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "SI", onPress: () => BackHandler.exitApp() }
+    ]);
+    return true
+  }
+
+  handleBackButtonClickAfter() {
+    return true
+  }
+
   render(){
     return(
       <View style={styles.container}>

@@ -20,6 +20,7 @@ export default class Statistics extends Component {
                 
             <View style={styles.container_list}>
             <FlatList
+            nestedScrollEnabled
             style={styles.list}
             data={this.state.users}
             renderItem={
@@ -47,12 +48,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     item: {
-        padding: 7,
+        padding: 6,
         fontSize: 18,
+        left: 55
     },
     list: {
         top: 80,
-        left: 85
+        height: "80%"
     },
     image: {
       flex: 1,
