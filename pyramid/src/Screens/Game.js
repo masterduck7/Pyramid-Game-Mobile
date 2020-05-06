@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, ImageBackground, Modal, StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
+import { BackHandler, Image, ImageBackground, Modal, StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
 import { Table, Row } from 'react-native-table-component';
 import background from '../../assets/Background.png';
 import BackgroundCard from '../../assets/BackgroundCard.png';
@@ -20,7 +20,7 @@ export default class Game extends Component{
       "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
       "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
       structure: [],
-      remaining_cards: 0,
+      number_of_cards: 0,
       disabledButtons: [],
       playedButtons: [],
       modalCard: false,
@@ -66,6 +66,15 @@ export default class Game extends Component{
     const cards = this.setUserCards();
     this.setStructure(cards);
     this.state.disabledButtons.push(`${0}.${0}`)
+    BackHandler.addEventListener('hardwareBackPress',this.handleBackButtonClick);
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress',this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick() {
+    return true;
   }
 
   setUserCards(){
@@ -316,6 +325,7 @@ export default class Game extends Component{
             animationType = {"fade"}  
             transparent = {true}  
             visible = {this.state.modalCard}  
+            onRequestClose={() => this.setState({ modalCard: false })}
           >  
             <View style = {styles.modal}>  
             <ImageBackground source={BackgroundCard} resizeMethod="resize" style={styles.image_modal}>
@@ -323,7 +333,7 @@ export default class Game extends Component{
               <Text style = {{...styles.textModal, top: -30}}>{this.state.userModal}</Text>
               <Image fadeDuration={3} source={this.cardImage} style={{width:210, height:330, top: -10}} />
               <TouchableOpacity
-                onPress = {() => {this.setState({ modalCard:!this.state.modalCard})}}
+                onPress = {() => {this.setState({ modalCard: false})}}
                 style={styles.buttonClose}>
                 <Text style={{ fontSize: 20, color: '#474442' }}>CERRAR</Text>
               </TouchableOpacity>
