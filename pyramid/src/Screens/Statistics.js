@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ImageBackground, FlatList, StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import background from '../../assets/Background.png';
 
 export default class Statistics extends Component {
