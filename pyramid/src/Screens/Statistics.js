@@ -15,10 +15,11 @@ export default class Statistics extends Component {
         return(
         <View style={styles.container_list}>
             <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
-            <Text style={{ textAlign:'center', color: '#474442', fontSize: 30, top:60, marginRight: 260}}>¿QUIÉN</Text>
-            <Text style={{ textAlign:'center', color: '#474442', fontSize: 30, top:60, marginRight: 210}}>BEBIÓ</Text>
-            <Text style={{ textAlign:'center', color: '#474442', fontSize: 30, top:60, marginRight: 145}}>MÁS?</Text>
-                
+            <View style={{top: hp('7%'), alignSelf: 'flex-start'}}>
+                <Text style={{ color: '#474442', fontSize: hp('3.5%'), marginLeft: wp('5%')}}>¿QUIÉN</Text>
+                <Text style={{ color: '#474442', fontSize: hp('3.5%'), marginLeft: wp('15%')}}>BEBIÓ</Text>
+                <Text style={{ color: '#474442', fontSize: hp('3.5%'), marginLeft: wp('20%')}}>MÁS?</Text>
+            </View>
             <View style={styles.container_list}>
             <FlatList
             nestedScrollEnabled
@@ -34,9 +35,8 @@ export default class Statistics extends Component {
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Home')}
                 style={styles.buttonSubmit}>
-            <Text style={{ fontSize: 20, color: '#474442' }}>TERMINAR</Text>
+            <Text style={{ fontSize: hp('2.2%'), color: '#474442' }}>TERMINAR</Text>
             </TouchableOpacity>
-            <Text key="brand" style={{ bottom:-200, color: '#888'}}>By LPSoftware</Text>
             </ImageBackground>
         </View>
         );
@@ -49,28 +49,27 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     item: {
-        padding: 6,
-        fontSize: 18,
-        left: 55
+        padding: hp('1%'),
+        fontSize: hp('2%'),
+        marginLeft: wp('14%')
     },
     list: {
-        top: 80,
-        height: "80%"
+        marginTop: hp('10%'),
+        height: hp("80%")
     },
     image: {
       flex: 1,
       resizeMode: "stretch",
       justifyContent: "center",
       alignItems: 'center', 
-      width: "100%",
-      height: "100%"
+      width: wp("100%"),
+      height: hp("100%")
     },
     buttonSubmit: {
-      marginTop: 30,
-      top: -50,
-      padding: 10,
+      marginBottom: hp('7%'),
+      padding: hp('1.2%'),
       alignSelf:"center",
       borderColor: '#474442',
-      borderWidth: 2,
+      borderWidth: hp('0.25%'),
     }
 });
