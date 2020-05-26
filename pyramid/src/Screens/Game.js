@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BackHandler, Image, ImageBackground, Modal, StyleSheet, ScrollView , View, Button, Text, TouchableOpacity } from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { Table, Row } from 'react-native-table-component';
 import background from '../../assets/Background.png';
 import BackgroundCard from '../../assets/BackgroundCard.png';
@@ -296,7 +297,7 @@ export default class Game extends Component{
       const rowData = [];
       for (let j = 0; j < structure_array[i].length; j += 1) {
         const var_id = `${i}.${j}`
-        widthArr[i] = 35
+        widthArr[i] = wp('9%')
         rowData.push(
         <View style={styles.button} >
           <Button
@@ -329,18 +330,18 @@ export default class Game extends Component{
           >  
             <View style = {styles.modal}>  
             <ImageBackground source={BackgroundCard} resizeMethod="resize" style={styles.image_modal}>
-              <Text style = {{...styles.textModal, top: -30, left: -15, fontSize: 30}}>{this.state.textModal}</Text>
-              <Text style = {{...styles.textModal, top: -30}}>{this.state.userModal}</Text>
-              <Image fadeDuration={3} source={this.cardImage} style={{width:210, height:330, top: -10}} />
+              <Text style = {{...styles.textModal, marginBottom: hp('2%'), fontSize: hp('3.5%')}}>{this.state.textModal}</Text>
+              <Text style = {{...styles.textModal, marginBottom: hp('3%')}}>{this.state.userModal}</Text>
+              <Image fadeDuration={3} source={this.cardImage} resizeMethod = 'resize' style={styles.card} />
               <TouchableOpacity
                 onPress = {() => {this.setState({ modalCard: false})}}
                 style={styles.buttonClose}>
-                <Text style={{ fontSize: 20, color: '#474442' }}>CERRAR</Text>
+                <Text style={{ fontSize: hp('2.2%'), color: '#474442' }}>CERRAR</Text>
               </TouchableOpacity>
             </ImageBackground>
             </View>  
           </Modal>
-          <View style={{top: 100}}>
+          <View style={{marginTop: hp('15%')}}>
               <Table>
                 {
                   tableData.map((rowData, index) => (
@@ -349,7 +350,6 @@ export default class Game extends Component{
                       data={rowData}
                       widthArr={widthArr}
                       style={[styles.row]}
-                      textStyle={styles.text}
                     />
                   ))
                 }
@@ -359,7 +359,7 @@ export default class Game extends Component{
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Statistics', {users: this.state.users})}
           style={styles.buttonSubmit}>
-          <Text style={{ fontSize: 20, color: '#474442' }}>RESULTADOS</Text>
+          <Text style={{ fontSize: hp('2.2%'), color: '#474442' }}>RESULTADOS</Text>
         </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -378,33 +378,29 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
   },
-  text: {
-    textAlign: 'center',
-    fontWeight: '100'
-  },
   row: { 
-    height: 40,
+    height: hp('5%'),
     justifyContent: 'center',
-    marginBottom: 3,
+    marginBottom: hp('0.7%'),
   },
   button: {
     flex:1,
-    marginRight: 3,
+    marginRight: hp('0.7%'),
   },  
   modal: {  
     justifyContent: 'space-around',  
     alignItems: 'center',   
-    height: 720 ,  
-    width: '90%',  
-    borderWidth: 1,  
+    height: hp('85%'),  
+    width: wp('90%'),  
+    borderWidth: hp('0.15%'),  
     borderColor: '#ff887f',    
-    marginTop: 35,  
-    marginLeft: 20,  
+    marginTop: hp('5%'),  
+    marginLeft: hp('2%'),  
   },  
   textModal: {
-    fontSize: 25,
+    fontSize: hp('3.5%'),
     color: '#474442',  
-    marginTop: 30,
+    marginTop: hp('2%'),
     textAlign: 'center'
   },
   image: {
@@ -412,30 +408,34 @@ const styles = StyleSheet.create({
     resizeMode: "stretch",
     justifyContent: "center",
     alignItems: 'center', 
-    width: "120%",
-    height: "100%"
+    width: wp("120%"),
+    height: hp("100%")
   },
   image_modal: {
     flex: 1,
     resizeMode: "stretch",
     justifyContent: "center",
     alignItems: 'center', 
-    width: "100%",
-    height: "100%"
+    width: wp("90%"),
+    height: hp("85%")
+  },
+  card: {
+    width: wp('45%'),
+    height: hp ('35%'),
+    resizeMode : 'stretch'
   },
   buttonSubmit: {
-    marginTop: 30,
-    padding: 10,
+    marginBottom: hp('15%'),
+    padding: wp('3%'),
     alignSelf:"center",
     borderColor: '#474442',
-    borderWidth: 2,
-    top: -70
+    borderWidth: hp('0.25%')
   },
   buttonClose: {
-    padding: 6,
+    padding: hp('1%'),
     alignSelf:"center",
     borderColor: '#474442',
-    borderWidth: 2,
-    top: 10
+    borderWidth: hp('0.25%'),
+    top: hp('1%')
   }
 });
