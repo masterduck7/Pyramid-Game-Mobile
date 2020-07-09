@@ -130,9 +130,17 @@ export default class Game extends Component{
     // OBS: It's good when play more than 7 players
     
     const structure_array = [];
+    const height = this.state.pyramid_height;
+    // Set type of card for the game
+    // True drink, false gives a drink
+    // Last card always drink. So, if height is even start with gives a drink
+    // and is odd start with drink
+    let type_card = false;
+    if (height%2 == 0)
+      type_card = false
+    else
+      type_card = true
     if (this.state.hard) {
-      const height = this.state.pyramid_height;
-      let type_card = false;
       let number_of_cards = 0;
       let card_list = cards;
       for (let index = height; index > 0; index--) {
@@ -148,8 +156,6 @@ export default class Game extends Component{
       }
       this.setState({structure: structure_array, number_of_cards: number_of_cards})
     }else{
-      const height = this.state.pyramid_height;
-      let type_card = false;
       let number_of_cards = 0;
       let card_list = this.state.card_list_game;
       for (let index = height; index > 0; index--) {
@@ -261,11 +267,19 @@ export default class Game extends Component{
         }
       }      
     }else{
-      this.setState({
-        textModal: "Nadie Bebe",
-        userModal: "",
-        modalCard: true
-      })
+      if (type_card) {
+        this.setState({
+          textModal: "Nadie Bebe",
+          userModal: "",
+          modalCard: true
+        })
+      }else{
+        this.setState({
+          textModal: "Nadie regala",
+          userModal: "",
+          modalCard: true
+        })
+      }
     }
     // Change number of remaining cards
     this.setState({
