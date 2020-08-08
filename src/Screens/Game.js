@@ -205,13 +205,13 @@ export default class Game extends Component{
     })
   }
 
-  addDrinks(name){
+  addDrinks(name, nDrinks){
     user_list = this.state.users
     new_user_list = []
     user_list.forEach(user => {
       let newDrinks = user.drinks
       if (user.name === name) {
-        newDrinks = newDrinks + 1
+        newDrinks = newDrinks + nDrinks
         new_user_list.push({ "name": user.name , cards: user.cards, drinks: newDrinks })
       }else{
         new_user_list.push({ "name": user.name , cards: user.cards, drinks: user.drinks })
@@ -232,7 +232,7 @@ export default class Game extends Component{
       if (user.cards.includes(card)) {
         drink_users.push(user.name)
         if (type_card) {
-          this.addDrinks(user.name)
+          this.addDrinks(user.name, nDrinks + 1)
         }                
       }
     });
