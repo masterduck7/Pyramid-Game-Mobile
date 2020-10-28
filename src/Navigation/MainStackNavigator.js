@@ -4,8 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../Screens/Home.js'
 import Modes from '../Screens/Modes.js';
-import Setup from '../Screens/Setup.js';
-import Game from '../Screens/Game.js';
+import SetupNormal from '../Screens/Normal/SetupNormal.js';
+import GameNormal from '../Screens/Normal/GameNormal.js';
 import Statistics from '../Screens/Statistics.js';
 
 const Stack = createStackNavigator();
@@ -30,7 +30,7 @@ function MainStackNavigator() {
                         },
                         headerTitleAlign: "center"
                     }} />
-                <Stack.Screen name='Setup' component={Setup}
+                <Stack.Screen name='SetupNormal' component={SetupNormal}
                     options={{
                         title: 'Variables',
                         headerStyle: {
@@ -54,7 +54,7 @@ function MainStackNavigator() {
                         },
                         headerTitleAlign: "center"
                     }} />
-                <Stack.Screen name='Game' component={Game}
+                <Stack.Screen name='GameNormal' component={GameNormal}
                     options={{
                         title: 'Juego',
                         headerStyle: {

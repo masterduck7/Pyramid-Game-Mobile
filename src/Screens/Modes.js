@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
-import { Image, ImageBackground, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatGrid } from 'react-native-super-grid';
+import { Image, ImageBackground, Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import background from '../../assets/Background.png';
-import Steps from '../../assets/Steps.png';
+import icon from '../../assets/icon.png';
 
 export default class Modes extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            modes: [
+                { "name": "Normal", "image": icon, "color": "green" },
+                { "name": "Birthday", "image": icon, "color": "red" },
+                { "name": "Missil", "image": icon, "color": "black" },
+                { "name": "Armageddon", "image": icon, "color": "blue" },
+            ]
+        }
+    }
+
+    goToMode(mode) {
+        this.props.navigation.navigate("Setup" + mode)
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
-                    <Text style={{ color: '#474442', fontSize: hp('4.9%'), marginTop: hp('-10%') }}>MODOS</Text>
-                    <Image source={Steps} resizeMode="stretch"
-                        style={{ width: wp('90%'), height: hp('30%'), alignContent: 'center' }} />
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Setup')}
-                        style={{
-                            borderColor: '#474442', padding: wp('4%'), borderWidth: hp('0.25%'),
-                            top: hp('5%'), alignSelf: 'flex-end', marginRight: wp('10%')
-                        }}>
-                        <Text style={{ fontSize: hp('2.2%'), color: '#474442' }}>JUGAR</Text>
-                    </TouchableOpacity>
+                    <Text style={{ color: '#474442', fontSize: hp('4.9%'), marginTop: hp('10%'), marginBottom: hp('5%') }}>MODOS</Text>
+                    <ScrollView horizontal={false} style={{ width: "100%" }}>
+                        <FlatGrid
+                            itemDimension={120}
+                            style={styles.modeCards}
+                            data={this.state.modes}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <TouchableOpacity onPress={() => this.goToMode(item.name)} style={[styles.itemContainer, { backgroundColor: item.color }]}>
+                                        <Text style={styles.itemName}>{item.name}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                        />
+                    </ScrollView>
                 </ImageBackground>
             </View>
         );
@@ -38,5 +59,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: wp("100%"),
         height: hp("100%")
+    },
+    modeCards: {
+        marginLeft: wp('5%'),
+        marginRight: wp('5%'),
+        width: wp('90%'),
+        flex: 1,
+    },
+    itemContainer: {
+        justifyContent: 'center',
+        borderRadius: 5,
+        padding: 10,
+        height: 150,
+    },
+    itemName: {
+        fontSize: 16,
+        color: '#fff',
+        fontWeight: '600',
+        textAlign: "center"
     },
 });

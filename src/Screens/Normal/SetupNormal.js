@@ -3,9 +3,9 @@ import { Alert, ImageBackground, Text, View, StyleSheet, TouchableOpacity, Scrol
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Input, CheckBox } from 'react-native-elements';
 import { Formik } from 'formik';
-import background from '../../assets/Background.png';
+import Background from '../../../assets/Background.png';
 
-export default class Setup extends Component {
+export default class SetupNormal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,7 +22,7 @@ export default class Setup extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
+                <ImageBackground source={Background} resizeMethod="resize" style={styles.image}>
                     <ScrollView style={{ width: "100%" }}>
                         <View style={{ top: hp('8%'), alignSelf: 'flex-start', marginLeft: wp('15%') }} >
                             <Text style={{ color: '#474442', fontSize: hp('2.2%'), marginLeft: wp('5%') }}>VARIABLES</Text>
@@ -45,7 +45,7 @@ export default class Setup extends Component {
                                         users: values
                                     })
                                     this.props.navigation.navigate(
-                                        'Game',
+                                        'GameNormal',
                                         {
                                             pyramid_height: this.state.pyramid_height,
                                             users: this.state.users, hard: this.state.hard
