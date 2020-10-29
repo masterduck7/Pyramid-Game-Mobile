@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
-import { Image, ImageBackground, Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, Image, ImageBackground, Text, View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import background from '../../assets/Background.png';
 import icon from '../../assets/icon.png';
@@ -12,7 +12,7 @@ export default class Modes extends Component {
             modes: [
                 { "name": "Normal", "image": icon, "color": "green" },
                 { "name": "Birthday", "image": icon, "color": "red" },
-                { "name": "Missil", "image": icon, "color": "black" },
+                { "name": "Missile", "image": icon, "color": "black" },
                 { "name": "Armageddon", "image": icon, "color": "blue" },
             ]
         }
@@ -27,7 +27,7 @@ export default class Modes extends Component {
             <View style={styles.container}>
                 <ImageBackground source={background} resizeMethod="resize" style={styles.image}>
                     <Text style={{ color: '#474442', fontSize: hp('4.9%'), marginTop: hp('10%'), marginBottom: hp('5%') }}>MODOS</Text>
-                    <ScrollView horizontal={false} style={{ width: "100%" }}>
+                    <SafeAreaView style={styles.containerCards}>
                         <FlatGrid
                             itemDimension={120}
                             style={styles.modeCards}
@@ -40,7 +40,7 @@ export default class Modes extends Component {
                                 </View>
                             )}
                         />
-                    </ScrollView>
+                    </SafeAreaView>
                 </ImageBackground>
             </View>
         );
@@ -78,4 +78,8 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textAlign: "center"
     },
+    containerCards: {
+        flex: 1,
+        width: wp("100%")
+    }
 });
